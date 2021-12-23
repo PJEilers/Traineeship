@@ -1,0 +1,29 @@
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+span {
+    color: yellow;
+}
+
+.mijnspan {
+    color: brown;
+}
+
+#mijn-afbeelding {
+    border: 5px dashed blue;
+}
+
+#mijn-afbeelding:hover {
+    border: 5px solid black;
+}
+
+li:hover {
+    text-decoration: underline;
+}
+
+td:hover {
+    background-color: black;
+    color: white
+}

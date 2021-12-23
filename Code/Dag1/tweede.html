@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moi</title>
+
+
+</head>
+
+<body id="mainbody">
+    <h1>Rekenmachine</h1>
+    <input type = "number" id = "input1">
+    <input type = "number"  id = "input2"><br>
+    <button onclick = "showAdd()">Add</button>
+    <button onclick = "showSubtract()">Subtract</button>
+    <button onclick = "showMultiply()">Multiply</button>
+    <button onclick = "showDivide()">Divide</button>
+    <button onclick = "showPower()">Power</button><br><br>
+    <span> Het antwoord is: </span>
+    <span id = "result"></p>
+    
+</body>
+<script>
+    function showAdd() {
+        document.getElementById("result").innerText  = parseInt(document.getElementById("input1").value) + parseInt(document.getElementById("input2").value);
+    }
+    function showSubtract() {
+        document.getElementById("result").innerText =  parseInt(document.getElementById("input1").value) - parseInt(document.getElementById("input2").value);
+    }
+    function showMultiply () {
+        document.getElementById("result").innerText  =  parseInt(document.getElementById("input1").value) * parseInt(document.getElementById("input2").value);
+    }
+    function showDivide() {
+        document.getElementById("result").innerText =  parseInt(document.getElementById("input1").value) / parseInt(document.getElementById("input2").value);
+    }
+    function showPower() {
+        document.getElementById("result").innerText =  parseInt(document.getElementById("input1").value) ** parseInt(document.getElementById("input2").value);
+    }
+</script>
+</html>
