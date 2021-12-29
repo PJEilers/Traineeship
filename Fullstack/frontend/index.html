@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fullstack Development</title>
+</head>
+
+<body>
+
+    <h1>Personen</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody id="personen">
+
+        </tbody>
+    </table>
+
+    
+    <input type="text" id="naam"><button type="button" onclick="naamOpslaan()">Opslaan</button>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Adres</th>
+                <th>Postcode</th>
+                <th>Stad</th>
+            </tr>
+        </thead>
+        <tbody id="adressen">
+
+        </tbody>
+    </table>
+
+    <input type="text" id="straat">
+    <input type="number" id="nummer">
+    <input type="text" id="postcode">
+    <input type="text" id="stad">
+
+    <button type="button" onclick="adresOpslaan()">Opslaan</button>
+
+    <script>
+
+        function adresOpslaan() {
+            const straat = document.getElementById("straat").value
+            const nummer = document.getElementById("nummer").value
+            const postcode = document.getElementById("postcode").value
+            const stad = document.getElementById("stad").value
+
+            const nieuwAdres = {
+                street: straat,
+                houseNumber: nummer,
+                postalCode: postcode,
+                city: stad
+            }
+
+            fetch("http://localhost:8080/maakadresaan", {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(nieuwAdres)
+            }).then(response => {
+                alert('Is goedgegaan')
+            }).catch(error => {
+                alert('Er is iets fout gegaan')
+            })
+        }
+
+        function naamOpslaan() {
+            const nieuwenaam = document.getElementById("naam").value
+
+            const nieuwPersoon = {
+                name: nieuwenaam,
+            }
+
+            fetch("http://localhost:8080/maakpersoonaan", {
+                method: 'POST',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(nieuwPersoon)
+            }).then(response => {
+                alert('Is goedgegaan')
+            }).catch(error => {
+                alert('Er is iets fout gegaan')
+            })
+        }
+
+
+        function fillTable(data) {
+            let personsTableHtml = ''
+
+            for (let r of data) {
+                personsTableHtml += `<tr>
+                    <td>${r.id}</td>
+                    <td>${r.name}</td>
+                    </tr>`;
+            }
+
+            document.getElementById("personen").innerHTML = personsTableHtml;
+        }
+
+        fetch("http://localhost:8080/personen").then(res => {
+            return res.json();
+
+        }).then(personen => {
+            fillTable(personen)
+        })
+
+        function fillAddressTable(data) {
+            let addressTableHtml = ''
+
+            for (let r of data) {
+                addressTableHtml += `<tr>
+                    <td>${r.id}</td>
+                    <td>${r.street} ${r.houseNumber}</td>
+                    <td>${r.postalCode}</td>
+                    <td>${r.city}</td>
+                    </tr>`;
+            }
+
+            document.getElementById("adressen").innerHTML = addressTableHtml;
+        }
+
+        fetch("http://localhost:8080/addresses").then(res => {
+            return res.json();
+
+        }).then(adressen => {
+            fillAddressTable(adressen)
+        })
+    </script>
+
+</body>
+
+</html>
